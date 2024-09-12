@@ -2,34 +2,43 @@ import os
 from pathlib import Path
 import logging
 
-logging.basicConfig(level=logging.INFO, 
-                    format="[%(asctime)s:  %(levelname)s]:%(message)s ")
+logging.basicConfig(
+    level=logging.INFO,
+    format= "[%(asctime)s: %(levelname)s]: %(message)s"
+    )
 
 while True:
-    projects_name=input("Project Name:")
-    if projects_name!="":
+    project_name = input("Enter the Project Name: ")
+    if project_name != '':
         break
-logging.info(f"creating project by name: {projects_name}")
 
-list_of_files=[
+logging.info(f"Creating project by name: {project_name}")
+
+# list of files:
+list_of_files = [
     ".github/workflows/.gitkeep",
-    f"src/{projects_name}/__init__.py",
+    f"src/{project_name}/__init__.py",
+    f"tests/__init__.py",
+    f"tests/unit/__init__.py",
+    f"tests/integration/__init__.py",
     "init_setup.sh",
-    "reqirements.txt",
-    "reqirements_dev.txt",
+    "requirements.txt",
+    "requirements_dev.txt",
     "setup.py",
     "pyproject.toml",
-    "setup.cfg",
-    "tox.ini",
+    'setup.cfg',
+    "tox.ini"
 ]
 
 for filepath in list_of_files:
-    file_path=Path(filepath)
-    file_dir,file_name=os.path.split(file_path)
-    if file_dir!="":
-        os.makedirs(file_dir, exist_ok=True)
-        logging.info(f"creating directory: {file_dir}")
-    if (not os.path.exists(file_path)) or (os.path.getsize(file_path)==0):
-        with open(file_path, "w") as f:
+    filepath = Path(filepath)
+    filedir, filename = os.path.split(filepath)
+    if filedir != "":
+        os.makedirs(filedir, exist_ok=True)
+        logging.info(f"Creating a directory at: {filedir} for file: {filename}")
+    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
+        with open(filepath, "w") as f:
             pass
-        logging.info(f"creating file: {file_name} in {file_path}")
+            logging.info(f"Creating a new file: {filename} at path: {filepath}")
+    else:
+        logging.info(f"file is already present at: {filepath}")
