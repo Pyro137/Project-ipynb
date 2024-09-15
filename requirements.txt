@@ -3,3 +3,4 @@ notebook
 ensure
 py-youtube
 setuptools
+-e .
