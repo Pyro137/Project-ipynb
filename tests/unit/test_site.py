@@ -1,22 +1,19 @@
-from IPYNBrenderer.site import render_site
 import pytest
+from IPYNBrenderer.site import is_valid_url
 
-URL_example_data=[
-    ("https://www.google.com","success"),
-    ("https://www.youtube.com","success"),
-    ("https://www.github.com","success"),
-    ("https://www.linkedin.com","success"),
-    ("https://www.facebook.com","success"),
-    ("https://www.twitter.com","success"),
-    ("https://www.instagram.com","success"),
-    ("https://www.pinterest.com","success"),
-    ("https://www.reddit.com","success"),
-    ("https://www.tumblr.com","success"),
-
+URL_test_data = [
+    ("http://pytorch.org", True),
+    ("https://pytorch.org", True),
+    ("http://pytorch", False),
+    ("http//pytorch", False),
+    ("http:/pytorch", False),
+    ("http/pytorch", False),
+    ("http/pytorch", False),
+    ("pytorch", False),
+    ("http://asyef/", False),
 ]
 
+@pytest.mark.parametrize("URL, response", URL_test_data)
+def test_is_valid(URL, response):
+    assert is_valid_url(URL) == response
 
-@pytest.mark.parametrize("URL,response", URL_example_data)
-def test_render_site_success(URL, response):  # Renamed function
-    print("test_input", URL)
-    assert render_site(URL) == response

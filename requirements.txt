@@ -4,5 +4,6 @@ ensure
 py-youtube
 setuptools
 mkdocs-material
+mkdocs
 
 -e .

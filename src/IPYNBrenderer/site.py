@@ -2,14 +2,20 @@ from IPython import display
 from ensure import ensure_annotations
 import urllib.request
 from IPYNBrenderer.custom_exception import InvalidUrlException
+from IPYNBrenderer.logger import logger
 
 
+@ensure_annotations
 def is_valid_url(URL: str) -> bool:
     try:
-        with urllib.request.urlopen(URL, timeout=5) as response:
-            return response.status == 200
+        response_status = urllib.request.urlopen(URL).getcode()
+        assert response_status == 200
+        logger.debug(f"response_status: {response_status}")
+        return True
     except Exception as e:
-        raise InvalidUrlException
+        logger.exception(e)
+        return False
+
 
 @ensure_annotations
 def render_site(URL: str, width: str = "100%", height: str = "600") -> str:

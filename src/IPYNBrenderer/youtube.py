@@ -6,9 +6,9 @@ from IPYNBrenderer.logger import logger
 from py_youtube import Data
 
 
-
+@ensure_annotations
 def get_time(URL: str) -> int:
-    def _verify_vid_id_len(vid_id, __expected_len=11):
+    def _verify_vid_id_len(vid_id: str, __expected_len: int = 11) -> None:  # Adding type annotations
         len_of_vid_id = len(vid_id)
         if len_of_vid_id != __expected_len:
             raise InvalidUrlException(
@@ -45,6 +45,7 @@ def get_time(URL: str) -> int:
         raise InvalidUrlException
 
 
+@ensure_annotations
 def render_and_display_video(URL: str, width: int = 854, height: int = 480) -> str:
     try:
         
@@ -53,7 +54,6 @@ def render_and_display_video(URL: str, width: int = 854, height: int = 480) -> s
         
         # Fetch data from YouTube Data API
         data = Data(URL).data()
-        
         
         # Check if the video exists by checking the publish date
         if data["publishdate"] is not None:
@@ -88,7 +88,3 @@ def render_and_display_video(URL: str, width: int = 854, height: int = 480) -> s
     except Exception as e:
         logger.error(f"Error in render_and_display_video: {e}")
         raise InvalidUrlException
-
-if "__main__" == __name__:
-    render_and_display_video("https://www.youtube.com/watch?v=cjLolDTHBYU")
-
