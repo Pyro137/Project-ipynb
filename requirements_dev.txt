@@ -5,6 +5,7 @@ py-youtube
 
 #dev requirements
 pytest
+mkdocs-material
 tox
 black
 flake8

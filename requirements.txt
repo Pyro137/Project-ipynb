@@ -3,4 +3,6 @@ notebook
 ensure
 py-youtube
 setuptools
+mkdocs-material
+
 -e .
