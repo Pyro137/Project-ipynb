@@ -47,7 +47,7 @@ def get_time(URL: str) -> int:
 
 def render_and_display_video(URL: str, width: int = 854, height: int = 480) -> str:
     try:
-        print("input_data içeride",URL)
+        
         if URL is None:
             raise InvalidUrlException("Invalid URL")
         
